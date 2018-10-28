@@ -1,6 +1,7 @@
 import pygame
 import random
 import sys
+import time
 
 Max_X = 1920
 Max_Y = 1080
@@ -14,7 +15,7 @@ class Snow():
         self.speed = random.randint(1, 3) #random speed 1-3
         self.img_num = random.randint(1, 4)
         self.image_filename = "snow" + str(self.img_num) + ".png"
-        self.image = pygame.image.load(self.image_filename).convert()
+        self.image = pygame.image.load(self.image_filename).convert_alpha()
         self.image = pygame.transform.scale(self.image, (Snow_Size, Snow_Size))
 
     def move_snow(self):
@@ -61,4 +62,5 @@ while True:
     for i in snowfall:
         i.move_snow()
         i.draw_snow()
+    time.sleep(0.0020)
     pygame.display.flip()
