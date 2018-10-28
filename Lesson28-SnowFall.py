@@ -6,19 +6,19 @@ import time
 Max_X = 1920
 Max_Y = 1080
 Max_Snow = 100
-Snow_Size = 64
+Snow_Size = 64 # compress image
 
 class Snow():
     def __init__(self, x, y):
         self.x = x
         self.y = y
         self.speed = random.randint(1, 3) #random speed 1-3
-        self.img_num = random.randint(1, 4)
-        self.image_filename = "snow" + str(self.img_num) + ".png"
-        self.image = pygame.image.load(self.image_filename).convert_alpha()
+        self.img_num = random.randint(1, 4) #& files
+        self.image_filename = "snow" + str(self.img_num) + ".png" #name files
+        self.image = pygame.image.load(self.image_filename).convert_alpha() #not bg, clean image convert.alpha
         self.image = pygame.transform.scale(self.image, (Snow_Size, Snow_Size))
 
-    def move_snow(self):
+    def move_snow(self): # speed snow
         self.y = self.y + self.speed
         if self.y > Max_Y:
             self.y = (0 - Snow_Size)
@@ -41,7 +41,7 @@ def initialize_snow(Max_Snow, snowfall):
         yy = random.randint(0, Max_Y)
         snowfall.append(Snow(xx, yy)) #coordinate snow
 
-def check_for_exit():
+def check_for_exit(): # exit push button
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             sys.exit()
@@ -50,17 +50,17 @@ def check_for_exit():
 #--------------------Main------------------
 
 pygame.init()
-screen = pygame.display.set_mode((Max_X, Max_Y), pygame.FULLSCREEN)
+screen = pygame.display.set_mode((Max_X, Max_Y), pygame.FULLSCREEN) # mode fullscreen
 
 bg_color = (0, 0, 0)
-snowfall = []
+snowfall = [] # storage
 initialize_snow(Max_Snow, snowfall) # count snow
 
 while True:
-    screen.fill(bg_color)
+    screen.fill(bg_color) # correct bg
     check_for_exit()
     for i in snowfall:
         i.move_snow()
         i.draw_snow()
-    time.sleep(0.0020)
-    pygame.display.flip()
+    time.sleep(0.0020) #delay
+    pygame.display.flip() # draw snowfall
